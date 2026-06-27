@@ -27,11 +27,11 @@ uninstall:
 	rm -f $(DESTDIR)$(MAN1DIR)/$(NAME).1.gz
 
 dist: clean
-	cd .. && tar --exclude-vcs -czf $(NAME)-$(VERSION).tar.gz $(NAME)-$(VERSION)
+	cd .. && tar --exclude-vcs -czf $(NAME).tar.gz $(NAME)
 
 rpm: dist
 	rpmdev-setuptree
-	cp ../$(NAME)-$(VERSION).tar.gz $(HOME)/rpmbuild/SOURCES/
+	cp ../$(NAME).tar.gz $(HOME)/rpmbuild/SOURCES/
 	cp packaging/rpm/$(NAME).spec $(HOME)/rpmbuild/SPECS/
 	rpmbuild -ba $(HOME)/rpmbuild/SPECS/$(NAME).spec
 
