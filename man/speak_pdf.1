@@ -1,0 +1,87 @@
+.TH SPEAK_PDF 1 "June 2026" "speak_pdf 1.1" "User Commands"
+.SH NAME
+speak_pdf \- generate OPUS speech audio from text, text files, or OCR-readable PDFs
+.SH SYNOPSIS
+.B speak_pdf
+.RI [ options ]
+.I input
+.SH DESCRIPTION
+.B speak_pdf
+converts direct text, UTF-8 text files, or OCR-readable PDF documents into spoken OPUS audio using the OpenAI Text-to-Speech API.
+.PP
+For PDF input, the program reads the selectable text layer. This may come from a digitally generated PDF or from OCR software such as
+.BR ocrmypdf (1).
+It first attempts extraction with the Python
+.B pypdf
+library and falls back to Poppler's
+.BR pdftotext (1).
+.PP
+Long documents are split into safe chunks, synthesized separately, and recombined with
+.BR ffmpeg (1).
+.SH OPTIONS
+.TP
+.BI \-o,\ --output " file"
+Write generated OPUS audio to
+.IR file .
+Default:
+.BR speech.opus .
+.TP
+.BI --voice " voice"
+OpenAI TTS voice. Default:
+.BR onyx .
+.TP
+.BI --model " model"
+OpenAI TTS model. Default:
+.BR gpt-4o-mini-tts .
+.TP
+.BI --pages " range"
+PDF page range, e.g.
+.BR 3 ,
+.BR 3-7 ,
+or
+.BR 10:20 .
+.TP
+.BI --export-text [ file ]
+Export extracted text to a UTF-8 file.
+.TP
+.BI --chunk-chars " number"
+Maximum characters per TTS request. Default:
+.BR 5500 .
+.TP
+.B --no-play
+Do not start automatic playback with
+.BR mpv (1).
+.SH ENVIRONMENT
+.TP
+.B OPENAI_API_KEY
+Required OpenAI API key.
+.SH EXAMPLES
+.TP
+.B speak_pdf document.pdf
+Generate speech from a PDF.
+.TP
+.B speak_pdf --pages 3-7 document.pdf
+Read pages 3 through 7.
+.TP
+.B speak_pdf --export-text extracted.txt --no-play document.pdf
+Export text and suppress playback.
+.SH EXIT STATUS
+.TP
+.B 0
+Successful completion.
+.TP
+.B non-zero
+An error occurred.
+.SH SECURITY CONSIDERATIONS
+Document text is sent to the configured OpenAI speech API endpoint. Do not process confidential documents unless this is acceptable for the applicable privacy requirements.
+.SH AUTHORS
+Andreas Mitsis
+.SH COPYRIGHT
+Copyright \(co 2026 Andreas Mitsis.
+Released under the GPLv2 License.
+.SH SEE ALSO
+.BR ffmpeg (1),
+.BR mpv (1),
+.BR pdftotext (1),
+.BR ocrmypdf (1),
+.BR python3 (1)
