@@ -1,6 +1,6 @@
-# speak_pdf
+# speakpdf
 
-`speak_pdf` converts OCR-readable PDFs, UTF-8 text files, or direct text into OPUS speech audio using the OpenAI Text-to-Speech API.
+`speakpdf` converts OCR-readable PDFs, UTF-8 text files, or direct text into OPUS speech audio using the OpenAI Text-to-Speech API.
 
 ## Install from source
 
