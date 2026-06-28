@@ -4,7 +4,7 @@ Release:        1%{?dist}
 Summary:        Read OCR PDFs and text files aloud using OpenAI TTS
 
 License:        GPLv2
-URL:            https://example.invalid/speak_pdf
+URL:            https://example.invalid/speakpdf
 Source0:        %{name}-%{version}.tar.gz
 
 BuildArch:      noarch
