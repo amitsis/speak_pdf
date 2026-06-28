@@ -22,5 +22,5 @@ Build RPM:
 
 Making Binaries under Linux from the C++ Code provided:
 
-$ g++ -std=c++17 -O2 -Wall -Wextra speak_pdf.cpp -lcurl -o speak_pdf
+$ g++ -std=c++17 -O2 -Wall -Wextra speakpdf.cpp -lcurl -o speakpdf
 
