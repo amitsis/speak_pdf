@@ -8,21 +8,21 @@
 make
 sudo make install
 sudo mandb
-man speak_pdf
+man speakpdf
 ```
 
 Default paths:
 
-- `/usr/bin/speak_pdf`
-- `/usr/share/man/man1/speak_pdf.1.gz`
+- `/usr/bin/speakpdf`
+- `/usr/share/man/man1/speakpdf.1.gz`
 
 ## Build RPM on openSUSE
 
 ```sh
 sudo zypper install rpm-build rpmdevtools
 rpmdev-setuptree
-tar czf speak_pdf-1.1.tar.gz speak_pdf-1.1
-cp speak_pdf-1.1.tar.gz ~/rpmbuild/SOURCES/
-cp speak_pdf-1.1/packaging/rpm/speak_pdf.spec ~/rpmbuild/SPECS/
-rpmbuild -ba ~/rpmbuild/SPECS/speak_pdf.spec
+tar czf speakpdf-1.1.tar.gz speakpdf-1.1
+cp speakpdf-1.1.tar.gz ~/rpmbuild/SOURCES/
+cp speakpdf-1.1/packaging/rpm/speakpdf.spec ~/rpmbuild/SPECS/
+rpmbuild -ba ~/rpmbuild/SPECS/speakpdf.spec
 ```
