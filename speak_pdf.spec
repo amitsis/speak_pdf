@@ -1,4 +1,4 @@
-Name:           speak_pdf
+Name:           speakpdf
 Version:        1.1
 Release:        1%{?dist}
 Summary:        Read OCR PDFs and text files aloud using OpenAI TTS
