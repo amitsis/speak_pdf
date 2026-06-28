@@ -1,12 +1,12 @@
-.TH SPEAK_PDF 1 "June 2026" "speak_pdf 1.1" "User Commands"
+.TH SPEAK_PDF 1 "June 2026" "speakpdf 1.1" "User Commands"
 .SH NAME
-speak_pdf \- generate OPUS speech audio from text, text files, or OCR-readable PDFs
+speakpdf \- generate OPUS speech audio from text, text files, or OCR-readable PDFs
 .SH SYNOPSIS
-.B speak_pdf
+.B speakpdf
 .RI [ options ]
 .I input
 .SH DESCRIPTION
-.B speak_pdf
+.B speakpdf
 converts direct text, UTF-8 text files, or OCR-readable PDF documents into spoken OPUS audio using the OpenAI Text-to-Speech API.
 .PP
 For PDF input, the program reads the selectable text layer. This may come from a digitally generated PDF or from OCR software such as
@@ -57,13 +57,13 @@ Do not start automatic playback with
 Required OpenAI API key.
 .SH EXAMPLES
 .TP
-.B speak_pdf document.pdf
+.B speakpdf document.pdf
 Generate speech from a PDF.
 .TP
-.B speak_pdf --pages 3-7 document.pdf
+.B speakpdf --pages 3-7 document.pdf
 Read pages 3 through 7.
 .TP
-.B speak_pdf --export-text extracted.txt --no-play document.pdf
+.B speakpdf --export-text extracted.txt --no-play document.pdf
 Export text and suppress playback.
 .SH EXIT STATUS
 .TP
