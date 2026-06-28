@@ -19,7 +19,7 @@ Requires:       poppler-tools
 Recommends:     python3-pypdf
 
 %description
-speak_pdf converts OCR-readable PDF documents, UTF-8 text files, or direct text
+speakpdf converts OCR-readable PDF documents, UTF-8 text files, or direct text
 into spoken OPUS audio using the OpenAI Text-to-Speech API. Long texts are
 automatically split into multiple requests and recombined into one OPUS file.
 
@@ -38,8 +38,8 @@ make check
 %files
 %license LICENSE
 %doc README.md INSTALL NEWS AUTHORS CHANGELOG.md
-%{_bindir}/speak_pdf
-%{_mandir}/man1/speak_pdf.1%{?ext_man}
+%{_bindir}/speakpdf
+%{_mandir}/man1/speakpdf.1%{?ext_man}
 
 %changelog
 * Fri Jun 26 2026 Andreas Mitsis <amitsis@gmail.com> - 1.1-1
