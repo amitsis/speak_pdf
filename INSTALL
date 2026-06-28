@@ -19,3 +19,8 @@ Build RPM:
     cp speak_pdf-1.1.tar.gz ~/rpmbuild/SOURCES/
     cp speak_pdf-1.1/packaging/rpm/speak_pdf.spec ~/rpmbuild/SPECS/
     rpmbuild -ba ~/rpmbuild/SPECS/speak_pdf.spec
+
+Making Binaries under Linux from the C++ Code provided:
+
+$ g++ -std=c++17 -O2 -Wall -Wextra speak_pdf.cpp -lcurl -o speak_pdf
+
