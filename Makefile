@@ -12,6 +12,12 @@ LDLIBS    ?= -lcurl
 
 INSTALL   ?= install
 
+# Desired owner for the locally built binary and installed files.
+# When building as user "mitsis", the binary is already owned correctly.
+# When building/installing as root, these settings force ownership to mitsis.
+OWNER     ?= mitsis
+GROUP     ?= $(shell id -gn $(OWNER) 2>/dev/null || echo $(OWNER))
+
 TARGET     = $(NAME)
 SOURCE     = src/speakpdf.cpp
 MANPAGE    = man/$(NAME).1
@@ -21,6 +27,13 @@ all: $(TARGET) manpage
 
 $(TARGET): $(SOURCE)
 	$(CXX) $(CXXFLAGS) $(SOURCE) $(LDLIBS) -o $(TARGET)
+	chmod 755 $(TARGET)
+	@if [ "$$(id -u)" = "0" ]; then \
+		chown $(OWNER):$(GROUP) $(TARGET); \
+	elif [ "$$(id -un)" != "$(OWNER)" ]; then \
+		echo "Warning: $(TARGET) is owned by $$(id -un), not $(OWNER)."; \
+		echo "Run 'sudo chown $(OWNER):$(GROUP) $(TARGET)' if ownership must be changed."; \
+	fi
 
 manpage:
 	@if [ -f "$(MANPAGE)" ]; then \
@@ -41,10 +54,19 @@ check: all
 	@echo "Basic checks passed."
 
 install: all
-	$(INSTALL) -Dm755 $(TARGET) $(DESTDIR)$(BINDIR)/$(NAME)
-	$(INSTALL) -Dm755 "$(TARGET).py" "$(DESTDIR)$(BINDIR)/$(NAME).py"
+	@if [ "$$(id -u)" = "0" ]; then \
+		$(INSTALL) -o $(OWNER) -g $(GROUP) -Dm755 $(TARGET) $(DESTDIR)$(BINDIR)/$(NAME); \
+		$(INSTALL) -o $(OWNER) -g $(GROUP) -Dm755 "$(TARGET).py" "$(DESTDIR)$(BINDIR)/$(NAME).py"; \
+	else \
+		$(INSTALL) -Dm755 $(TARGET) $(DESTDIR)$(BINDIR)/$(NAME); \
+		$(INSTALL) -Dm755 "$(TARGET).py" "$(DESTDIR)$(BINDIR)/$(NAME).py"; \
+	fi
 	@if [ -f "$(MANPAGE_GZ)" ]; then \
-		$(INSTALL) -Dm644 "$(MANPAGE_GZ)" "$(DESTDIR)$(MAN1DIR)/$(NAME).1.gz"; \
+		if [ "$$(id -u)" = "0" ]; then \
+			$(INSTALL) -o $(OWNER) -g $(GROUP) -Dm644 "$(MANPAGE_GZ)" "$(DESTDIR)$(MAN1DIR)/$(NAME).1.gz"; \
+		else \
+			$(INSTALL) -Dm644 "$(MANPAGE_GZ)" "$(DESTDIR)$(MAN1DIR)/$(NAME).1.gz"; \
+		fi; \
 	else \
 		echo "No man page installed because $(MANPAGE_GZ) does not exist."; \
 	fi
