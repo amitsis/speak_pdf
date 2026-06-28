@@ -53,6 +53,16 @@ uninstall:
 	rm -f $(DESTDIR)$(BINDIR)/$(NAME)
 	rm -f $(DESTDIR)$(MAN1DIR)/$(NAME).1.gz
 
+
+dist: clean
+	cd .. && tar --exclude-vcs -czf $(NAME).tar.gz $(NAME)
+
+rpm: dist
+	rpmdev-setuptree
+	cp ../$(NAME).tar.gz $(HOME)/rpmbuild/SOURCES/
+	cp packaging/rpm/$(NAME).spec $(HOME)/rpmbuild/SPECS/
+	rpmbuild -ba $(HOME)/rpmbuild/SPECS/$(NAME).spec
+
 clean:
 	rm -f $(TARGET)
 	rm -f $(MANPAGE_GZ)
