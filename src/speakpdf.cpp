@@ -1,5 +1,5 @@
 /*
- * speak_pdf.cpp
+ * speakpdf.cpp
  *
  * High-quality PDF/Text to Speech converter for Linux using
  * the OpenAI Text-to-Speech API.
@@ -23,7 +23,7 @@
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
- * $Id: speak_pdf.cpp,v 1.0 2026/06/27 16:45:00 mitsis Exp $
+ * $Id: speakpdf.cpp,v 1.0 2026/06/27 16:45:00 mitsis Exp $
  */
 
 #include <algorithm>
