@@ -1,6 +1,7 @@
-NAME      = speakpdf
-VERSION   = 1.1
-
+VERSION := 1.1
+RPMARCH := $(shell rpm --eval '%{_arch}')
+NAME    = speakpdf
+RPMTOP  = $(HOME)/rpmbuild
 PREFIX    ?= /usr
 BINDIR    ?= $(PREFIX)/bin
 MANDIR    ?= $(PREFIX)/share/man
@@ -79,11 +80,23 @@ uninstall:
 dist: clean
 	cd .. && tar --exclude-vcs -czf $(NAME).tar.gz $(NAME)
 
-rpm: dist
+#rpm: dist
+#	rpmdev-setuptree
+#	cp ../$(NAME).tar.gz $(HOME)/rpmbuild/SOURCES/
+#	cp packaging/rpm/$(NAME).spec $(HOME)/rpmbuild/SPECS/
+#	rpmbuild -ba $(HOME)/rpmbuild/SPECS/$(NAME).spec
+
+rpm: clean
+	rm -rf /tmp/$(NAME)-$(VERSION)
+	mkdir -p /tmp/$(NAME)-$(VERSION)
+	cp -a . /tmp/$(NAME)-$(VERSION)/
+	rm -rf /tmp/$(NAME)-$(VERSION)/.git /tmp/$(NAME)-$(VERSION)/packaging/rpm/RPMS /tmp/$(NAME)-$(VERSION)/packaging/rpm/SOURCES /tmp/$(NAME)-$(VERSION)/packaging/rpm/SPECS /tmp/$(NAME)-$(VERSION)/packaging/rpm/SRPMS /tmp/$(NAME)-$(VERSION)/packaging/rpm/BUILD
+	tar -C /tmp -czf /tmp/$(NAME)-$(VERSION).tar.gz $(NAME)-$(VERSION)
 	rpmdev-setuptree
-	cp ../$(NAME).tar.gz $(HOME)/rpmbuild/SOURCES/
-	cp packaging/rpm/$(NAME).spec $(HOME)/rpmbuild/SPECS/
-	rpmbuild -ba $(HOME)/rpmbuild/SPECS/$(NAME).spec
+	cp /tmp/$(NAME)-$(VERSION).tar.gz $(RPMTOP)/SOURCES/
+	cp packaging/rpm/$(NAME).spec $(RPMTOP)/SPECS/
+	rpmbuild -ba $(RPMTOP)/SPECS/$(NAME).spec
+
 
 clean:
 	rm -f $(TARGET)

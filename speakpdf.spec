@@ -1,6 +1,6 @@
 Name:           speakpdf
 Version:        1.1
-Release:        1%{?dist}
+Release:        1
 Summary:        Read OCR PDFs and text files aloud using OpenAI TTS
 
 License:        GPLv2
@@ -39,8 +39,9 @@ make check
 %license LICENSE
 %doc README.md INSTALL NEWS AUTHORS CHANGELOG.md
 %{_bindir}/speakpdf
+%{_bindir}/speakpdf.py
 %{_mandir}/man1/speakpdf.1%{?ext_man}
 
 %changelog
-* Fri Jun 26 2026 Andreas Mitsis <amitsis@gmail.com> - 1.1-1
+* Fri Jun 26 2026 Andreas Mitsis <amitsis@gmail.com> - 1.1
 - Initial RPM package for openSUSE Tumbleweed.
