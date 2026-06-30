@@ -50,7 +50,7 @@
 namespace fs = std::filesystem;
 
 static constexpr int DEFAULT_CHUNK_CHARS = 5500;
-static const std::string PROGRAM_NAME = "speak_pdf";
+static const std::string PROGRAM_NAME = "speakpdf";
 static const std::string PROGRAM_VERSION = "1.1";
 static const std::string DEFAULT_OUTPUT = "speech.opus";
 static const std::string DEFAULT_TEXT_EXPORT = "extracted.txt";
@@ -350,7 +350,7 @@ static void synthesize_chunk(const std::string &text, const fs::path &output_fil
     curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, static_cast<long>(body.size()));
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_audio_callback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &ctx);
-    curl_easy_setopt(curl, CURLOPT_USERAGENT, "speak_pdf_cpp/1.0");
+    curl_easy_setopt(curl, CURLOPT_USERAGENT, "speakpdf_cpp/1.0");
 
     CURLcode res = curl_easy_perform(curl);
     long http_code = 0;
